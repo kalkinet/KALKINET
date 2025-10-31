@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KALKINET</title>
+  <meta name="description" content="KALKINET: Cyber Defense, IT Infrastructure, and Digital Transformation solutions."/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+  <!-- Favicon / Title Logo -->
+  <link rel="icon" href="logo.png" sizes="any"><!-- classic .ico -->
+  <link rel="icon" type="logo.png" sizes="32x32" href="logo.png">
+  <link rel="icon" type="logo.png" sizes="192x192" href="logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#0b0f1a">
+
+  <style>
+    :root{--bg:#0b0f1a;--text:#e6e9f3;--muted:#a5afc7;--border:rgba(255,255,255,.08);--accent:#7c3aed;--accent2:#06b6d4;--panel:#101729}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);}
+    img{max-width:100%;display:block}
+
+    /* Header */
+    header{position:sticky;top:0;background:rgba(10,12,22,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:40}
+    .container{width:min(1200px,90vw);margin:0 auto;padding:0 1rem}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 0}
+    .brand{display:flex;align-items:center;gap:.75rem;font-weight:800;font-size:1.1rem;cursor:pointer;text-decoration:none;color:var(--text)}
+    .logo{width:100px;height:40px;border-radius:10px;overflow:hidden}
+    .logo img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+    nav a{color:var(--muted);text-decoration:none;margin-left:22px;font-weight:600;transition:.3s}
+    nav a:hover{color:var(--accent2)}
+    .cta{display:inline-block;padding:10px 18px;border-radius:12px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;text-decoration:none;font-weight:900;box-shadow:0 4px 20px rgba(124,58,237,.4)}
+
+    /* === NEW: ELEGANT CYBER BACKGROUND (3 canvas layers) === */
+    #water-bg, #hex-grid, #vertex-network{position:fixed;inset:0;width:100%;height:100%;z-index:-3;display:block}
+    #hex-grid{z-index:-2}
+    #vertex-network{z-index:-1}
+    
+    /* A very subtle vignette to keep focus on content */
+    body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:-4;
+      background: radial-gradient(60vw 60vh at 50% 0%, rgba(12,16,36,.35), transparent 70%),
+                  radial-gradient(80vw 80vh at 50% 100%, rgba(5,8,15,.6), rgba(5,8,15,.9));}
+
+    /* Hero */
+    .hero{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6rem 1rem 5rem;gap:1.5rem}
+    .hero-logo img{width:370px;height:150px;border-radius:20px;box-shadow:0 0 30px rgba(124,58,237,.4);object-fit:cover}
+    .badge{display:inline-block;padding:8px 16px;border-radius:999px;border:1px solid var(--border);color:var(--muted);background:rgba(255,255,255,.05);font-size:1rem;margin-top:1rem;letter-spacing:.4px}
+    .title{font-size:clamp(2rem,6vw,4rem);font-weight:900;margin:12px 0;line-height:1.05}
+    .gradient{background:linear-gradient(200deg,var(--accent),var(--accent2));-webkit-background-clip:text;color:transparent}
+    .subtitle{color:var(--muted);max-width:700px;margin:0 auto 2rem;font-size:1.15rem;line-height:1.8;letter-spacing:.3px;font-weight:400;transition:color .3s ease}
+    .subtitle:hover{color:#dce3f9}
+    .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+
+    /* Sections */
+    .page-section{display:none;min-height:calc(100vh - 72px);padding:4rem 0;opacity:0;transform:translateY(12px);transition:opacity .35s ease, transform .35s ease}
+    .page-section.active{display:block;opacity:1;transform:none}
+    .fullpage main > *:not(.page-section){display:none}
+    .page-section h2{text-align:center;font-size:2rem;margin-bottom:1.5rem;position:relative}
+    .page-section h2::after{content:'';display:block;width:80px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));margin:.6rem auto;border-radius:10px}
+    .page-section .muted{text-align:center;color:var(--muted);max-width:700px;margin:0 auto 2rem}
+    .grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));justify-items:center}
+    .card{background:rgba(16,23,41,.9);border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center;max-width:360px;box-shadow:0 10px 30px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);transition:transform .3s ease, box-shadow .3s ease}
+    .card:hover{transform:translateY(-8px);box-shadow:0 15px 40px rgba(124,58,237,.35)}
+    .card h3{margin-bottom:.6rem;font-size:1.25rem;color:var(--accent2)}
+    .card p{color:var(--muted);font-size:1rem}
+
+    /* Contact */
+    .contact-wrap{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));align-items:start;margin-top:1.5rem}
+    .panel{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:1.5rem}
+    .info-panel .info-list{display:flex;flex-direction:column;gap:1rem;margin:1rem 0}
+    .info-row{display:flex;gap:.9rem;align-items:flex-start}
+    .info-row .icon{font-size:1.25rem}
+    .info-row .label{font-weight:600}
+    .info-row .value{color:var(--text)}
+    .tag{margin-left:.5rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:999px;font-size:.8rem;color:var(--muted)}
+    .socials{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem}
+    .socials a{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem .8rem;border:1px solid var(--border);border-radius:12px;color:var(--text);text-decoration:none}
+    .contact-panel form{display:flex;flex-direction:column;gap:1rem}
+    .split{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+    label .label{display:block;font-weight:600;margin:0 0 .35rem}
+    input, textarea{width:100%;background:#0c1326;border:1px solid var(--border);color:var(--text);border-radius:12px;padding:.8rem;outline:none}
+    input:focus, textarea:focus{border-color:var(--accent2)}
+
+    footer{border-top:1px solid var(--border);color:var(--muted);padding:2rem 0}
+    .footer-container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .footer-text{font-size:.95rem}
+    .footer-socials{display:flex;gap:1.5rem;align-items:center;margin-left:auto}
+    .footer-socials a{color:var(--text);font-size:1.5rem;text-decoration:none;transition:.3s ease}
+    .footer-socials a:hover{color:var(--accent2);transform:scale(1.15)}
+
+    @media(max-width:600px){
+      .footer-container{flex-direction:column;justify-content:center;text-align:center}
+      .footer-socials{margin-left:0;justify-content:center}
+    }
+
+    /* ===== MOBILE MENU (unchanged) ===== */
+    .menu-toggle{display:none;align-items:center;justify-content:center;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);border-radius:12px;width:42px;height:42px;cursor:pointer}
+    .menu-toggle:focus{outline:2px solid var(--accent2);outline-offset:2px}
+    .menu-icon{position:relative;width:20px;height:2px;background:currentColor;border-radius:2px}
+    .menu-icon::before,.menu-icon::after{content:'';position:absolute;left:0;width:20px;height:2px;background:currentColor;border-radius:2px}
+    .menu-icon::before{top:-6px}
+    .menu-icon::after{top:6px}
+
+    .mobile-panel{display:none;position:fixed;inset:72px 0 auto 0;background:rgba(10,12,22,.98);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:1rem;z-index:39}
+    .mobile-links{display:flex;flex-direction:column;gap:.6rem}
+    .mobile-links a{display:block;padding:.9rem 1rem;border:1px solid var(--border);border-radius:12px;color:var(--text);text-decoration:none;font-weight:600}
+    .mobile-links a:hover{border-color:var(--accent2)}
+
+    @media (max-width: 900px){
+      nav, .nav .cta{display:none}
+      .menu-toggle{display:inline-flex}
+      .mobile-panel[aria-hidden="false"]{display:block}
+      .footer-container{flex-direction:column;justify-content:center;text-align:center}.footer-socials{margin-left:0;justify-content:center}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#home" class="brand" id="home-link">
+        <div class="logo"><img src="logo.png" alt="KALKINET Logo"></div>
+        <span>KALKINET</span>
+      </a>
+
+      <!-- Desktop nav (unchanged) -->
+      <nav aria-label="Primary">
+        <a href="#Why Us">Why Us</a>
+        <a href="#industries">Industries</a>
+        <a href="#approach">Approach</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="cta" href="#contact">Free Security Audit</a>
+  
+      <!-- Mobile menu button (unchanged) -->
+      <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+        <span class="menu-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <!-- Mobile dropdown panel (unchanged) -->
+    <div id="mobile-menu" class="mobile-panel" aria-hidden="true">
+      <div class="container">
+        <nav class="mobile-links" aria-label="Mobile">
+          <a href="#services">Services</a>
+          <a href="#Why Us">Why Us</a>
+          <a href="#industries">Industries</a>
+          <a href="#approach">Approach</a>
+          <a href="#contact">Contact</a>
+          <a href="#contact" class="cta" style="text-align:center">Free Security Audit</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- === NEW CYBER BACKGROUND LAYERS === -->
+    <canvas id="water-bg"></canvas>
+    <canvas id="hex-grid"></canvas>
+    <canvas id="vertex-network"></canvas>
+
+    <section class="hero container" id="home">
+      <div class="hero-logo"><img src="logo.png" alt="KALKINET Company Logo"></div>
+      <span class="badge">🛡️ Empowering Digital Intelligence & Cybersecurity</span>
+      <div class="hero-text">
+        <h1 class="title">Secure. Smart. Scalable.</h1>
+        <h1 class="title"><span class="gradient">KALKINET</span></h1>
+        <p class="subtitle">KALKINET provides end-to-end cybersecurity, infrastructure, and digital protection for modern businesses. Stay secure, compliant, and future-ready with our intelligent solutions.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#services">Explore Services</a>
+          <a class="cta" style="background:transparent;border:1px solid var(--accent2);color:var(--accent2)" href="#contact">Get Free Consultation</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTENT SECTIONS UNCHANGED ===== -->
+    <section id="services-page" class="container page-section" aria-labelledby="services-title">
+      <h2 id="services-title">Core Services</h2>
+      <p class="muted">From proactive assessments to round-the-clock defense, we cover the full security lifecycle.</p>
+      <div class="grid">
+        <article class="card"><h3>Vulnerability Assessment & Penetration Testing (VAPT)</h3><p class="muted">Find, prioritize, and fix vulnerabilities before attackers do.</p></article>
+        <article class="card"><h3>Web & Mobile App Security Testing</h3><p class="muted">End-to-end testing to harden apps against modern threats.</p></article>
+        <article class="card"><h3>Cloud Security Audit</h3><p class="muted">Secure configurations and controls across AWS, Azure, and GCP.</p></article>
+        <article class="card"><h3>Network Security & Configuration Audit</h3><p class="muted">Design and tune networks for resilience and zero-trust.</p></article>
+        <article class="card"><h3>Incident Response & Digital Forensics</h3><p class="muted">Detect, contain, and recover with evidence-based analysis.</p></article>
+        <article class="card"><h3>SOC Setup & Management</h3><p class="muted">24×7 monitoring, alerting, and threat hunting.</p></article>
+        <article class="card"><h3>Security Awareness Training</h3><p class="muted">Human-layer security to stop phishing and social engineering.</p></article>
+        <article class="card"><h3>IT Infrastructure & Consulting</h3><p class="muted">System integration, server & network management, DR planning.</p></article>
+        <article class="card"><h3>Software, Web & Mobile Development</h3><p class="muted">Custom apps, portals, e-commerce, and UI/UX design.</p></article>
+      </div>
+    </section>
+
+    <section id="whyus-page" class="container page-section" aria-labelledby="whyus-title">
+      <h2 id="whyus-title">Why Us</h2>
+      <p class="muted">Enterprise-grade security with agility and compliance.</p>
+      <div class="grid">
+        <article class="card"><h3>Expert Team</h3><p>Certified professionals across domains.</p></article>
+        <article class="card"><h3>Proactive Defense</h3><p>24×7 monitoring and threat intelligence.</p></article>
+        <article class="card"><h3>Compliance Ready</h3><p>ISO 9001:2015,MSME Certificated,SOC2.</p></article>
+      </div>
+    </section>
+
+    <section id="industries-page" class="container page-section" aria-labelledby="industries-title">
+      <h2 id="industries-title">Industries We Serve</h2>
+      <p class="muted">From proactive assessments to round-the-clock defense, we cover the full security lifecycle.</p>
+      <div class="grid">
+        <article class="card"><h3>Information Technology</h3><p>Helping IT enterprises secure data, code, and systems to support innovation safely.</p></article>
+        <article class="card"><h3>Banking & Finance (FinTech)</h3><p>Strengthening financial systems with encryption, monitoring, and fraud prevention.</p></article>
+        <article class="card"><h3>E-commerce & Retail</h3><p>Building customer trust through secure transactions and privacy protection.</p></article>
+        <article class="card"><h3>Education & E-Learning</h3><p>Securing digital classrooms, student data, and content management systems.</p></article>
+        <article class="card"><h3>Media & Telecommunications</h3><p>Safeguarding data flow and media content against unauthorized access.</p></article>
+        <article class="card"><h3>Startups & SMBs</h3><p>Affordable and scalable security solutions tailored for growing businesses.</p></article>
+      </div>
+    </section>
+
+    <section id="approach-page" class="container page-section" aria-labelledby="approach-title">
+      <h2 id="approach-title">Our 4D Security Framework</h2>
+      <p class="muted">Delivering comprehensive protection — from proactive assessments to 24×7 defense across your entire security lifecycle.</p>
+      <div class="grid">
+        <article class="card"><h3>Discover</h3><p>Identify assets, threats, and vulnerabilities across your ecosystem.</p></article>
+        <article class="card"><h3>Defend</h3><p>Deploy multi-layered defense systems and robust security controls.</p></article>
+        <article class="card"><h3>Detect</h3><p>Monitor network and system activity to spot and respond to intrusions quickly.</p></article>
+        <article class="card"><h3>Deliver</h3><p>Continuously improve, report outcomes, and align security to business goals.</p></article>
+      </div>
+    </section>
+
+    <section id="contact-page" class="container page-section" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact Us</h2>
+      <p class="muted">Let’s build a secure tomorrow, today. Reach out for a free consultation or a quick security health check.</p>
+
+      <div class="contact-wrap">
+        <div class="panel info-panel">
+          <h3>Talk to a Security Specialist</h3>
+          <div class="info-list">
+            <div class="info-row">
+              <div class="icon" aria-hidden="true">📧</div>
+              <div>
+                <div class="label">Email</div>
+                <div class="value"><a href="mailto:kalkinet@zohomain.in" style="color:inherit;text-decoration:none">kalkinet@zohomail.in</a></div>
+              </div>
+            </div>
+            <div class="info-row">
+              <div class="icon" aria-hidden="true">📞</div>
+              <div>
+                <div class="label">Phone / WhatsApp</div>
+                <div class="value"><a href="tel:+919109281389" style="color:inherit;text-decoration:none">+91-9109281389</a></div>
+              </div>
+            </div>
+            <div class="info-row">
+              <div class="icon" aria-hidden="true">🕒</div>
+              <div>
+                <div class="label">Hours</div>
+                <div class="value">Mon–Sat, 10:00 AM – 7:30 PM IST <span class="tag">24×7 Incident Support</span></div>
+              </div>
+            </div>
+            <div class="info-row">
+              <div class="icon" aria-hidden="true">📍</div>
+              <div>
+                <div class="label">Location</div>
+                <div class="value">Kunra,Dharsiwa,Raipur,CG,India</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="socials">
+            <a href="https://in.linkedin.com/company/KALKINET" aria-label="LinkedIn">🔗 <span>LinkedIn</span></a>
+            <a href="mailto:kalkinet00@gmail.com?subject=Inquiry%20from%20Website" aria-label="Email">✉️ <span>Email</span></a>
+
+          </div>
+        </div>
+
+        <div class="panel contact-panel">
+          <h3>Send Us a Message</h3>
+          <form id="contact-form" action="kalkinet@zohomail.in" method="post" novalidate>
+            <div class="split">
+              <label>
+                <span class="label">Full Name</span>
+                <input name="name" placeholder="Your name" required />
+              </label>
+              <label>
+                <span class="label">Email</span>
+                <input type="email" name="email" placeholder="you@example.com" required />
+              </label>
+            </div>
+            <div class="split">
+              <label>
+                <span class="label">Company (optional)</span>
+                <input name="company" placeholder="Your company" />
+              </label>
+              <label>
+                <span class="label">Phone (optional)</span>
+                <input type="tel" name="phone" placeholder="+91-XXXXXXXXXX" />
+              </label>
+            </div>
+            <label>
+              <span class="label">How can we help?</span>
+              <textarea name="message" placeholder="Briefly describe your requirement" rows="4" required></textarea>
+            </label>
+            <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+              <button type="submit" class="cta">Send Message</button>
+              <a class="cta" style="background:transparent;border:1px solid var(--accent2);color:var(--accent2)" href="mailto:kalkinet@zohomail.in?subject=Inquiry%20from%20Website">Email Directly</a>
+            </div>
+            <small class="muted" id="form-status" role="status" aria-live="polite"></small>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-text">© <span id="year"></span> KALKINET • Your Data • Your Security •</div>
+      <div class="footer-socials" aria-label="Social links">
+        <a href="https://in.linkedin.com/company/kalkinet" aria-label="LinkedIn" title="LinkedIn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8.98h5V24H0zM8.48 8.98h4.79v2.05h.07c.67-1.27 2.31-2.6 4.76-2.6 5.09 0 6.03 3.35 6.03 7.71V24h-5v-6.67c0-1.59-.03-3.63-2.21-3.63-2.21 0-2.55 1.73-2.55 3.51V24h-4.89V8.98z"/></svg>
+        </a>
+        <a href="https://x.com/Kalkinet" aria-label="X (Twitter)" title="X (Twitter)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3h4.6l4.2 5.6L17.6 3H21l-7.3 9.4L21.4 21h-4.6l-4.5-6-5 6H2.6l7.7-9.3L4 3z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/KALKINET/" aria-label="Instagram" title="Instagram">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zm6.25-3.25a1.25 1.25 0 1 1-1.25 1.25 1.25 1.25 0 0 1 1.25-1.25z"/></svg>
+        </a>
+        <a href="https://github.com/kalkinet" aria-label="GitHub" title="GitHub">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.59v-2.05c-3.34.73-4.04-1.41-4.04-1.41-.55-1.4-1.35-1.77-1.35-1.77-1.11-.76.08-.74.08-.74 1.23.09 1.88 1.26 1.88 1.26 1.09 1.88 2.86 1.34 3.56 1.03.11-.8.43-1.34.79-1.65-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.25-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.45 11.45 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.78.84 1.25 1.91 1.25 3.22 0 4.61-2.8 5.63-5.47 5.92.44.38.84 1.12.84 2.26v3.35c0 .33.22.71.83.59A12 12 0 0 0 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // ===== UTIL: fit canvases to DPR for crisp lines =====
+  const waterCanvas = document.getElementById('water-bg');
+  const gridCanvas = document.getElementById('hex-grid');
+  const starsCanvas = document.getElementById('vertex-network');
+  const wctx = waterCanvas.getContext('2d');
+  const gctx = gridCanvas.getContext('2d');
+  const sctx = starsCanvas.getContext('2d');
+
+  function fitCanvas(c){
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    c.width = Math.floor(innerWidth * dpr);
+    c.height = Math.floor(innerHeight * dpr);
+    c.style.width = innerWidth + 'px';
+    c.style.height = innerHeight + 'px';
+    return dpr;
+  }
+
+  let DPR = 1;
+  function resizeAll(){ DPR = fitCanvas(waterCanvas); fitCanvas(gridCanvas); fitCanvas(starsCanvas);} 
+  window.addEventListener('resize', resizeAll); resizeAll();
+
+  // ===== Layer 1: "Aurora" gradient waves (soft, premium look) =====
+  let t = 0;
+  function drawAurora(){
+    const w = waterCanvas.width, h = waterCanvas.height;
+    wctx.clearRect(0,0,w,h);
+
+    // base gradient background
+    const bg = wctx.createLinearGradient(0,0,w,h);
+    bg.addColorStop(0, '#0a0f1e');
+    bg.addColorStop(1, '#070b14');
+    wctx.fillStyle = bg; wctx.fillRect(0,0,w,h);
+
+    // animated blobs
+    wctx.globalCompositeOperation = 'lighter';
+    const bands = 3;
+    for(let i=0;i<bands;i++){
+      const cx = (Math.sin(t*0.6 + i)*0.4 + 0.5) * w;
+      const cy = (Math.cos(t*0.7 + i*1.7)*0.3 + 0.5) * h;
+      const r  = Math.max(w,h) * (0.35 + 0.15*Math.sin(t + i));
+      const grad = wctx.createRadialGradient(cx, cy, r*0.1, cx, cy, r);
+      // brand colors blend
+      grad.addColorStop(0, 'rgba(124,58,237,0.12)');   // violet
+      grad.addColorStop(0.5, 'rgba(6,182,212,0.08)'); // cyan
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      wctx.fillStyle = grad;
+      wctx.beginPath();
+      wctx.arc(cx, cy, r, 0, Math.PI*2);
+      wctx.fill();
+    }
+    wctx.globalCompositeOperation = 'source-over';
+  }
+
+  // ===== Layer 2: Subtle perspective grid (cyber, not noisy) =====
+  function drawGrid(){
+    const w = gridCanvas.width, h = gridCanvas.height;
+    gctx.clearRect(0,0,w,h);
+
+    // slight tilt + motion
+    const offset = (t*30) % (80*DPR);
+    gctx.save();
+    gctx.globalAlpha = 0.25; // subtle
+    gctx.strokeStyle = 'rgba(124,58,237,0.25)';
+    gctx.lineWidth = 1 * DPR;
+
+    // Converging grid toward a vanishing point at top center
+    const vpX = w/2; const vpY = h*0.15;
+    const rows = 14; const cols = 12;
+
+    // horizontal rows (curved perspective using power easing)
+    for(let i=0;i<rows;i++){
+      const p = i/(rows-1);
+      const y = h*0.4 + (h*0.7 - h*0.4) * Math.pow(p, 1.7) + offset; // moving down
+      const modY = ((y - h*0.4) % (h*0.3)) + h*0.4; // wrap
+      gctx.beginPath();
+      gctx.moveTo(0, modY);
+      gctx.quadraticCurveTo(vpX, modY - h*0.12, w, modY);
+      gctx.stroke();
+    }
+
+    // diagonal columns converging to vanishing point
+    for(let c=0;c<=cols;c++){
+      const x = (c/cols)*w;
+      gctx.beginPath();
+      gctx.moveTo(x, h);
+      gctx.lineTo(vpX, vpY);
+      gctx.stroke();
+    }
+
+    gctx.restore();
+
+    // soft scanline sheen
+    const scan = gctx.createLinearGradient(0, 0, 0, h);
+    scan.addColorStop(0, 'rgba(255,255,255,0.04)');
+    scan.addColorStop(0.5, 'rgba(255,255,255,0)');
+    scan.addColorStop(1, 'rgba(255,255,255,0.04)');
+    gctx.fillStyle = scan;
+    gctx.globalCompositeOperation = 'overlay';
+    gctx.fillRect(0,0,w,h);
+    gctx.globalCompositeOperation = 'source-over';
+  }
+
+  // ===== Layer 3: Calm parallax particles + cursor response =====
+  const dots = Array.from({length: 70}, () => ({
+    x: Math.random()*innerWidth, y: Math.random()*innerHeight,
+    z: Math.random()*0.6 + 0.4, // depth 0.4–1.0
+    r: Math.random()*1.8 + 0.7,
+    dx: (Math.random()-0.5)*0.2, dy: (Math.random()-0.5)*0.2
+  }));
+  let mouse = {x: innerWidth/2, y: innerHeight/2};
+  addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+  function drawStars(){
+    const w = starsCanvas.width, h = starsCanvas.height;
+    sctx.clearRect(0,0,w,h);
+    for(const d of dots){
+      d.x += d.dx; d.y += d.dy;
+      if(d.x < -50) d.x = innerWidth + 50; if(d.x > innerWidth + 50) d.x = -50;
+      if(d.y < -50) d.y = innerHeight + 50; if(d.y > innerHeight + 50) d.y = -50;
+
+      const parX = (d.x - mouse.x) * (0.015 * (1-d.z));
+      const parY = (d.y - mouse.y) * (0.015 * (1-d.z));
+
+      const x = (d.x - parX) * DPR;
+      const y = (d.y - parY) * DPR;
+
+      // point
+      sctx.beginPath();
+      sctx.arc(x, y, d.r*DPR, 0, Math.PI*2);
+      sctx.fillStyle = 'rgba(6,182,212,0.35)';
+      sctx.fill();
+    }
+
+    // sparse connections for near dots
+    for(let i=0;i<dots.length;i++){
+      for(let j=i+1;j<dots.length;j++){
+        const a=dots[i], b=dots[j];
+        const dx=a.x-b.x, dy=a.y-b.y; const dist=Math.hypot(dx,dy);
+        if(dist < 120){
+          sctx.globalAlpha = (1 - dist/120)*0.25;
+          sctx.strokeStyle = '#7c3aed';
+          sctx.lineWidth = 0.8 * DPR;
+          sctx.beginPath(); sctx.moveTo(a.x*DPR, a.y*DPR); sctx.lineTo(b.x*DPR, b.y*DPR); sctx.stroke();
+          sctx.globalAlpha = 1;
+        }
+      }
+    }
+  }
+
+  // ===== master animation loop =====
+  function loop(){
+    t += 0.008; // global time
+    drawAurora();
+    drawGrid();
+    drawStars();
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  // ===== SITE LOGIC (unchanged) =====
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const FULLPAGE_IDS = ['services','whyus','industries','approach','contact'];
+  function enterFullPage(id){
+    document.body.classList.add('fullpage');
+    document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+    const t = document.getElementById(id+'-page');
+    if(t) t.classList.add('active');
+    if(location.hash.replace('#','')!==id) history.replaceState(null,'','#'+id);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function exitFullPage(){
+    document.body.classList.remove('fullpage');
+    document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  }
+
+  document.querySelectorAll('nav a').forEach(l=>{
+    l.addEventListener('click',e=>{
+      e.preventDefault();
+      const k = l.textContent.trim().toLowerCase().replace(/\s+/g,'');
+      if(FULLPAGE_IDS.includes(k)) enterFullPage(k);
+    });
+  });
+
+  document.getElementById('home-link').addEventListener('click',e=>{
+    e.preventDefault(); exitFullPage(); window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  const servicesBtn = document.querySelector('.hero-actions a[href="#services"]');
+  if(servicesBtn) servicesBtn.addEventListener('click',e=>{e.preventDefault();enterFullPage('services');});
+
+  document.addEventListener('click',e=>{
+    const a = e.target.closest('a[href]'); if(!a) return; const h = a.getAttribute('href')||''; if(!h.includes('#')) return;
+    const raw = h.split('#')[1] || ''; const normalized = raw.toLowerCase().replace(/\s+/g,'');
+    if(normalized && FULLPAGE_IDS.includes(normalized)){ e.preventDefault(); enterFullPage(normalized);} 
+  });
+
+  function handleHash(){ const h = location.hash.replace('#','').toLowerCase().replace(/\s+/g,''); if(FULLPAGE_IDS.includes(h)) enterFullPage(h); else exitFullPage(); }
+  window.addEventListener('hashchange',handleHash); handleHash();
+
+  const form = document.getElementById('contact-form');
+  if(form){
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const status = document.getElementById('form-status');
+      status.textContent = 'Thanks! Your message has been recorded. We\'ll get back to you shortly.';
+      form.reset();
+    });
+  }
+
+  // Mobile menu
+const menuBtn = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+
+function setMenu(open){
+  menuBtn.setAttribute('aria-expanded', open);
+  mobileMenu.setAttribute('aria-hidden', !open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+
+menuBtn.addEventListener('click', ()=>{
+  const open = menuBtn.getAttribute('aria-expanded') === 'true';
+  setMenu(!open);
+});
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape') setMenu(false);
+});
+
+mobileMenu.addEventListener('click', (e)=>{
+  const a = e.target.closest('a[href]');
+  if(a) setMenu(false);
+});
+
+const mq = window.matchMedia('(min-width: 901px)');
+mq.addEventListener('change', (e)=>{
+  if(e.matches) setMenu(false);
+});
+
+/* NEW: Close mobile menu when clicking outside */
+document.addEventListener('click', (e)=>{
+  const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
+  if(!isOpen) return;
+
+  const clickedInsideMenu = mobileMenu.contains(e.target);
+  const clickedToggle = menuBtn.contains(e.target);
+
+  if(!clickedInsideMenu && !clickedToggle){
+    setMenu(false);
+  }
+});
+  </script>
+</body>
+</html>
