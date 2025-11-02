@@ -42,20 +42,34 @@
 
     /* Hero */
     .hero{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6rem 1rem 5rem;gap:1.5rem}
-    .hero-logo img{width:370px;height:150px;border-radius:20px;box-shadow:0 0 30px rgba(124,58,237,.4);object-fit:cover}
+    /* Desktop/laptop: show full wings (no crop) */
+    .hero-logo img{
+      width:min(60vw,450px);
+      height:auto;
+      max-height:190px;
+      object-fit:contain;
+      border-radius:20px;
+      box-shadow:0 0 30px rgba(124,58,237,.4);
+      padding:8px;
+      background:rgba(255,255,255,.02);
+    }
     .badge{display:inline-block;padding:8px 16px;border-radius:999px;border:1px solid var(--border);color:var(--muted);background:rgba(255,255,255,.05);font-size:1rem;margin-top:1rem;letter-spacing:.4px}
     .title{font-size:clamp(2rem,6vw,4rem);font-weight:900;margin:12px 0;line-height:1.05}
     .gradient{background:linear-gradient(200deg,var(--accent),var(--accent2));-webkit-background-clip:text;color:transparent}
     .subtitle{color:var(--muted);max-width:700px;margin:0 auto 2rem;font-size:1.15rem;line-height:1.8;letter-spacing:.3px;font-weight:400;transition:color .3s ease}
     .subtitle:hover{color:#dce3f9}
     .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
-   
+    /* Mobile Fix: show full logo */
+    @media(max-width:520px){
+      .hero-logo img{width:min(88vw,420px);height:auto;object-fit:contain;aspect-ratio:auto;padding:8px;background:rgba(255,255,255,.02);box-shadow:0 0 20px rgba(124,58,237,.35)}
+    }
+
     /* About (preview-style) */
     .about-hero{ 
       text-align:center; 
       padding:4rem 1rem 1rem; 
       border-bottom:1px solid var(--border);
-      background:transparent; /* make wrapper clean; actual card below */
+      background:transparent;
     }
     .about-hero .title{ font-size:clamp(1.8rem,5vw,2.8rem); font-weight:900; line-height:1.1; margin:.75rem 0; }
     .about-grid{ display:grid; gap:2rem; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); align-items:start; margin-top:2rem; }
@@ -165,6 +179,25 @@
       #skills{grid-template-columns:1fr}
       .pro-card{padding:1.5rem}
       .pro-name{font-size:1.4rem}
+      /* Mobile: About section also inside a card */
+      #about-page .about-card{
+        background:rgba(16,23,41,.9);
+        border:1px solid var(--border);
+        border-radius:18px;
+        box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+        padding:1rem 1.1rem;
+        max-width:900px;
+        margin:0 auto;
+      }
+      #about-page .about-card p{
+        padding:.75rem .85rem;
+        border:1px solid var(--border);
+        border-radius:12px;
+        background:rgba(255,255,255,.02);
+        line-height:1.7;
+        text-align:justify;
+      }
+      #about-page .about-card p + p{margin-top:.7rem;}
     }
 
     /* Contact */
@@ -446,7 +479,7 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h4.7l4.26 5.7L16.8 3H21l-7.27 9.36L21.3 21h-4.7l-4.6-6.1-5 6.1H2.7l7.7-9.3L3 3z"/></svg>
       </a>
       <a href="https://github.com/kalkinet" class="ps" aria-label="GitHub" title="GitHub">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.59v-2.05c-3.34.73-4.04-1.41-4.04-1.41-.55-1.4-1.35-1.77-1.35-1.77-1.11-.76.08-.74.08-.74 1.23.09 1.88 1.26 1.88 1.26 1.09 1.88 2.86 1.34 3.56 1.03.11-.8.43-1.34.79-1.65-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.25-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.45 11.45 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.78.84 1.25 1.91 1.25 3.22 0 4.61-2.8 5.63-5.47 5.92.44.38.84 1.12.84 2.26v3.35c0 .33.22 .71 .83 .59A12 12 0 0 0 12 .5z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.59v-2.05c-3.34.73-4.04-1.41-4.04-1.41-.55-1.4-1.35-1.77-1.35-1.77-1.11-.76.08-.74.08-.74 1.23.09 1.88 1.26 1.88 1.26 1.09 1.88 2.86 1.34 3.56 1.03.11-.8.43-1.34.79-1.65-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.25-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.45 11.45 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.78.84 1.25 1.91 1.25 3.22 0 4.61-2.8 5.63-5.47 5.92.44 .38 .84 1.12 .84 2.26v3.35c0 .33 .22 .71 .83 .59A12 12 0 0 0 12 .5z"/></svg>
       </a>
       <a href="mailto:kalkinet00@gmail.com?subject=Profile%20Inquiry" class="ps" aria-label="Email" title="Email">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 6v12H2V6l10 7L22 6zM2 4h20l-10 7L2 4z"/></svg>
@@ -532,7 +565,7 @@
           <form id="contact-form" action="kalkinet@zohomail.in" method="post" novalidate>
             <div class="split">
               <label>
-                <span class="label">Full Name</span>
+                <span class="label">Full Name</</span>
                 <input name="name" placeholder="Your name" required />
               </label>
               <label>
