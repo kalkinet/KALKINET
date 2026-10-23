@@ -176,6 +176,11 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
  footer{padding:24px 12px}
  .foot{align-items:center;text-align:center}
 }
+
+.location-link{display:flex;flex-direction:column;gap:4px;align-items:inherit;color:var(--white)}
+.location-link span:first-child{font-size:16px;line-height:1.55}
+.location-link .map-hint{font-size:12px;color:var(--blue);font-weight:700}
+.location-link:hover .map-hint{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -224,8 +229,8 @@ a:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 <div> 
 <div class="detail"><b>Phone / WhatsApp</b><a href="tel:+918109693100">+91 81096 93100</a></div>
 <div class="detail"><b>Email</b><a href="mailto:kalkinet@zohomail.in">kalkinet@zohomail.in</a></div>
-<div class="detail"><b>Location</b><span>Near India ATM, Tiwaraiya, Dharsiwa, Raipur, Chhattisgarh, India</span></div>
-<div class="detail"><b>Website</b><a href="https://kalkinet.com">kalkinet.com ↗</a></div>
+<div class="detail"><b>Location</b><a class="location-link" href="https://share.google/zofmGiCrEByQwZShe" target="_blank" rel="noopener"><span> Near India ATM, Tiwaraiya, Dharsiwa, Raipur, Chhattisgarh, India</span></a></div>
+<div class="detail"><b>Website</b><a href="https://kalkinet.github.io/KALKINET/">kalkinet.com ↗</a></div>
 </div>
 </div>
 </section>
